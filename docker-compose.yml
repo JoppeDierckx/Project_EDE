@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  my-service:
+    image: openjdk:17-jdk-alpine
+    working_dir: /usr/src/app/
+    command: >
+      sh -c "
+        apk --update add maven && \
+        rm -rf /var/cache/apk/* && \
+        mvn clean install && \
+        java -jar target/startproject-0.0.1-SNAPSHOT.jar
+      "
+    volumes:
+      - ./application:/usr/src/app/
+    ports:
+      - "8081:8081"
