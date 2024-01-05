@@ -14,7 +14,31 @@ services:
       MYSQL_INITDB_SKIP_TZINFO: 1
       MYSQL_INITDB_SKIP_REINIT: 1
     restart: always
-
+  mysql2: 
+    image: mysql
+    container_name: Voertuigen
+    networks:
+      - my_network
+    ports:
+      - "3308:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: VoertuigModel
+      MYSQL_INITDB_SKIP_TZINFO: 1
+      MYSQL_INITDB_SKIP_REINIT: 1
+    restart: always
+  mongodb:
+    image: mongo
+    container_name: Klanten
+    networks:
+      - my_network
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: klant
+    restart: always
   web:
     container_name: java1
     hostname: java1
@@ -34,6 +58,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/werknemers
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+
   kong:
     depends_on:
       - web
@@ -48,16 +73,39 @@ services:
       KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
       KONG_DECLARATIVE_CONFIG: "opt/kong/kong.yaml"
     command: sh -c "kong start"
+  web2:
+    image: openjdk:17-jdk-alpine
     networks:
       - my_network
+    working_dir: /usr/src/app/
+    command: sh -c "apk --update add maven && rm -rf /var/cache/apk/* && cd VoertuigService && mvn clean install && java -jar target/startproject-0.0.1-SNAPSHOT.jar"
     ports:
-      - "8000:8000"
-      - "8443:8443"
-      - "8001:8001"
-      - "8444:8444"
+      - "82:8080"
     volumes:
-      - ./config:/opt/kong
+      - ./application:/usr/src/app/
+      - ./VoertuigService:/usr/src/app/VoertuigService/
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql2:3306/VoertuigModel
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
 
+  web3:
+    image: openjdk:17-jdk-alpine
+    networks:
+      - my_network
+    working_dir: /usr/src/app/
+    command: sh -c "apk --update add maven && rm -rf /var/cache/apk/* && cd KlantenService && mvn clean install && java -jar target/startproject-0.0.1-SNAPSHOT.jar"
+    ports:
+      - "83:8080"
+    volumes:
+      - ./application:/usr/src/app/
+      - ./KlantenService:/usr/src/app/KlantenService/
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/klant
 networks:
   my_network:
     external: true
