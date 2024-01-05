@@ -1,2 +1,13 @@
 _format_version: "2.1"
 _transform: true
+
+services:
+  - name: werknemer-service
+    url: http://java1:8080/api/werknemer
+    routes:
+      - name: werknemer-get
+        paths:
+          - /api/werknemer
+        methods:
+          - GET
+        strip_path: true
