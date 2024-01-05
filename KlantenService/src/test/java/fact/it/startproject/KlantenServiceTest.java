@@ -29,13 +29,13 @@ class KlantenServiceTest {
     void testCurrentLocation() {
         // Arrange
         KlantenModel klant1 = new KlantenModel();
-        klant1.setId(1L);
+        klant1.setId(1L); // Set the id
         klant1.setName("John Doe");
         klant1.setPhoneNumber("123456789");
         klant1.setCurrentLocation("City A");
 
         KlantenModel klant2 = new KlantenModel();
-        klant2.setId(2L);
+        klant2.setId(2L); // Set the id
         klant2.setName("Jane Doe");
         klant2.setPhoneNumber("987654321");
         klant2.setCurrentLocation("City B");
@@ -63,6 +63,4 @@ class KlantenServiceTest {
         assertEquals("987654321", response2.getPhoneNumber());
         assertEquals("City B", response2.getCurrentLocation());
     }
-
-    // Add more tests as needed
 }
