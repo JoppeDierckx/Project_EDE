@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    container_name: Werknemers
+    networks:
+      - my_network
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: werknemers
+      MYSQL_INITDB_SKIP_TZINFO: 1
+      MYSQL_INITDB_SKIP_REINIT: 1
+    restart: always
+
+  web:
+    image: openjdk:17-jdk-alpine
+    networks:
+      - my_network
+    working_dir: /usr/src/app/
+    command: sh -c "apk --update add maven && rm -rf /var/cache/apk/* && cd WerknemerService && mvn clean install && java -jar target/startproject-0.0.1-SNAPSHOT.jar"
+    ports:
+      - "81:8080"
+    volumes:
+      - ./application:/usr/src/app/
+      - ./WerknemerService:/usr/src/app/WerknemerService/
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/werknemers
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+  kong:
+    image: kong:latest
+    container_name: kong
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_PROXY_ACCESS_LOG: '/dev/stdout'
+      KONG_ADMIN_ACCESS_LOG: '/dev/stdout'
+      KONG_PROXY_ERROR_LOG: '/dev/stderr'
+      KONG_ADMIN_ERROR_LOG: '/dev/stderr'
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+      KONG_DECLARATIVE_CONFIG: "opt/kong/kong.yaml"
+    command: "kong start"
+    networks:
+      - my_network
+    ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8001:8001"
+      - "8444:8444"
+    volumes:
+      - ./config:/opt/kong
+
+networks:
+  my_network:
+    external: true
