@@ -40,6 +40,8 @@ services:
       MONGO_INITDB_DATABASE: klant
     restart: always
   web:
+    container_name: java1
+    hostname: java1
     image: openjdk:17-jdk-alpine
     networks:
       - my_network
@@ -56,6 +58,21 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/werknemers
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+
+  kong:
+    depends_on:
+      - web
+    image: kong:latest
+    container_name: kong
+    environment:
+      KONG_DATABASE: 'off'
+      KONG_PROXY_ACCESS_LOG: '/dev/stdout'
+      KONG_ADMIN_ACCESS_LOG: '/dev/stdout'
+      KONG_PROXY_ERROR_LOG: '/dev/stderr'
+      KONG_ADMIN_ERROR_LOG: '/dev/stderr'
+      KONG_ADMIN_LISTEN: "0.0.0.0:8001, 0.0.0.0:8444 ssl"
+      KONG_DECLARATIVE_CONFIG: "opt/kong/kong.yaml"
+    command: sh -c "kong start"
   web2:
     image: openjdk:17-jdk-alpine
     networks:
