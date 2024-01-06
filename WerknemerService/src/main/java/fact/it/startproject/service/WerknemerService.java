@@ -1,5 +1,6 @@
 package fact.it.startproject.service;
 
+import fact.it.startproject.dto.WerknemerRequest;
 import fact.it.startproject.dto.WerknemerResponse;
 import fact.it.startproject.model.Werknemer;
 import fact.it.startproject.repository.WerknemerRepository;
@@ -44,5 +45,16 @@ public class WerknemerService {
                         .build()
                 )
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void updateWerknemer(String phoneNumber, WerknemerRequest werknemerRequest) {
+        System.out.println(werknemerRequest.getName());
+        werknemerRepository.findByPhoneNumber(phoneNumber).ifPresent(werknemer -> {
+            werknemer.setName(werknemerRequest.getName());
+            werknemer.setAvailable(werknemerRequest.isAvailable());
+            // Update other fields if needed
+            werknemerRepository.save(werknemer);
+        });
     }
 }
