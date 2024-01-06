@@ -17,7 +17,7 @@ public class KlantenController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<KlantenResponse> isAvailable(@RequestParam List<String> phoneNumber) {
-        return klantenService.currentLocation(phoneNumber);
+    public List<KlantenResponse> isAvailable(@RequestParam String phoneNumber) {
+        return klantenService.currentLocation(List.of(phoneNumber));
     }
 }
