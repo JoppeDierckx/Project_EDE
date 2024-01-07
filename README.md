@@ -26,7 +26,7 @@ Delete van voertuig
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/72e1511b-3e1e-4b72-b252-23abad1e1164)
 Get van Werknemers
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/01cfee31-357c-4276-b5cd-bdead6c452bb)
-
 ## Screenshots van de Promotheus
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91062604/73a113ec-60d2-4d6d-8351-5116d43b0ad1)
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91062604/935d0783-26d1-4e56-b1f2-19eefe91374e)
+
