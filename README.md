@@ -9,7 +9,7 @@ De componeneten die wij gekozen hebben zijn:
   - Klanten -> MongoDB
 - Componenten
     - voor de api geteway hebben wij een docker container met een kong image gebuikt.
--Uitbereidingen
+- Uitbereidingen
   - voor de uitbreidingen hebben wij een deel geprobeerd met Prometheus, maar dat werkt niet helemaal. Maar het werkt wel voor een deel.
 
 ## Screenshots van de endpoints
