@@ -102,6 +102,7 @@ services:
     depends_on:
       - mongodb
     environment:
+
       SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/klant
   web4:
     image: openjdk:17-jdk-alpine
