@@ -156,6 +156,18 @@ services:
       - "8444:8444"
     volumes:
       - ./config:/opt/kong
+      
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    networks:
+      - my_network
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
     
 networks:
   my_network:
