@@ -114,8 +114,8 @@ services:
 
       SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/klant
   web4:
-    container_name: Trip-Java
-    hostname: Trip-Java
+    container_name: TripJava
+    hostname: TripJava
     image: openjdk:17-jdk-alpine
     networks:
       - my_network

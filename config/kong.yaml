@@ -3,7 +3,7 @@ _transform: true
 
 services:
   - name: werknemer-service
-    url: http://java1:8080/api/werknemer
+    url: http://Werknemer-Java:8080/api/werknemer
     routes:
       - name: werknemer-get
         paths:
