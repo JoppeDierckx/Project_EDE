@@ -24,3 +24,4 @@ Delete van voertuig
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/e7e24134-eb27-4737-abb0-dad678151165)
 ![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/72e1511b-3e1e-4b72-b252-23abad1e1164)
 Get van Werknemers
+![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/e0f9b153-75ec-4a43-9c53-bcf62a42d574)
