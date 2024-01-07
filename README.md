@@ -1,2 +1,14 @@
 # Project_EDE
-![image](https://github.com/JoppeDierckx/Project_EDE/assets/91063001/d2180e94-a4c9-4fc3-b235-666493372e31)
+## Thema + componenten
+Het thema dat wij gekozen hebben is een taxi bedrijf.
+De componeneten die wij gekozen hebben zijn:
+  *Microservices
+    * Trip -> Mysql
+    * Voertuig -> Mysql
+    * Werknemers -> Mysql
+    * Klanten -> mongodb
+  *componenten
+    * voor de api geteway hebben wij een docker container met een kong image gebuikt.
+voor de uitbreidingen hebben wij een deel geprobeerd met Prometheus, maar dat werkt niet helemaal. Maar het werkt wel voor een deel.
+
+## Screenshots van de endpoints
