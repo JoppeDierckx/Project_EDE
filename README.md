@@ -1,4 +1,7 @@
 # Project_EDE
+
+## Link naar video
+https://youtu.be/BbZQOZYBJ1Y 
 ## Thema
 Het thema dat wij gekozen hebben is een taxi bedrijf. Bij dit taxibedrijf is er een trip en die is samengesteld door een voertuig, een klant en een werknemer.
 ## Componenten
