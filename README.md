@@ -1,6 +1,7 @@
 # Project_EDE
-## Thema + componenten
-Het thema dat wij gekozen hebben is een taxi bedrijf.
+## Thema
+Het thema dat wij gekozen hebben is een taxi bedrijf. Bij dit taxibedrijf is er een trip en die is samengesteld door een voertuig, een klant en een werknemer.
+## Componenten
 De componeneten die wij gekozen hebben zijn:
 - Microservices
   - Trip -> MySQL
