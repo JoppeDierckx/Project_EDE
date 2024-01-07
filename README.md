@@ -10,6 +10,7 @@ De componeneten die wij gekozen hebben zijn:
 - Componenten
   voor de api geteway hebben wij een docker container met een kong image gebuikt.
 -Uitbereidingen
- voor de uitbreidingen hebben wij een deel geprobeerd met Prometheus, maar dat werkt niet helemaal. Maar het werkt wel voor een deel.
+  - voor de uitbreidingen hebben wij een deel geprobeerd met Prometheus, maar dat werkt niet helemaal. Maar het werkt wel voor een deel.
+  - Onderdeel Y
 
 ## Screenshots van de endpoints
