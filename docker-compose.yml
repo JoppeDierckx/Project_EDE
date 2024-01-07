@@ -2,8 +2,9 @@ version: '3'
 
 services:
   mysql:
+    container_name: Werknemer-DB
+    hostname: Werknemer-DB
     image: mysql
-    container_name: Werknemers
     networks:
       - my_network
     ports:
@@ -15,8 +16,9 @@ services:
       MYSQL_INITDB_SKIP_REINIT: 1
     restart: always
   mysql2: 
+    container_name: Voertuig-DB
+    hostname: Voertuig-DB
     image: mysql
-    container_name: Voertuigen
     networks:
       - my_network
     ports:
@@ -28,8 +30,9 @@ services:
       MYSQL_INITDB_SKIP_REINIT: 1
     restart: always
   mongodb:
+    container_name: Klant-DB
+    hostname: Klant-DB
     image: mongo
-    container_name: Klanten
     networks:
       - my_network
     ports:
@@ -39,21 +42,23 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     restart: always
   mysql3: 
+    container_name: Trip-DB
+    hostname: Trip-DB
     image: mysql
-    container_name: Trips
     networks:
       - my_network
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: trip
       MYSQL_INITDB_SKIP_TZINFO: 1
       MYSQL_INITDB_SKIP_REINIT: 1
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: trip
+
     restart: always
   web:
-    container_name: java1
-    hostname: java1
+    container_name: Werknemer-Java
+    hostname: Werknemer-Java
     image: openjdk:17-jdk-alpine
     networks:
       - my_network
@@ -71,6 +76,8 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
   web2:
+    container_name: Voertuig-Java
+    hostname: Voertuig-Java
     image: openjdk:17-jdk-alpine
     networks:
       - my_network
@@ -89,6 +96,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: root
 
   web3:
+    container_name: Klant-Java
+    hostname: Klant-Java
     image: openjdk:17-jdk-alpine
     networks:
       - my_network
@@ -105,27 +114,30 @@ services:
 
       SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb:27017/klant
   web4:
+    container_name: Trip-Java
+    hostname: Trip-Java
     image: openjdk:17-jdk-alpine
     networks:
       - my_network
     working_dir: /usr/src/app/
-    command: sh -c "apk --update add maven && rm -rf /var/cache/apk/* && cd Trip-service && mvn clean install && java -jar target/startproject-0.0.1-SNAPSHOT.jar"
+    command: sh -c "apk --update add maven && rm -rf /var/cache/apk/* && cd TripService && mvn clean install && java -jar target/startproject-0.0.1-SNAPSHOT.jar"
     ports:
       - "84:8080"
     volumes:
       - ./application:/usr/src/app/
-      - ./Trip-service:/usr/src/app/Trip-service/
+      - ./TripService:/usr/src/app/TripService/
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/trip
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql3:3306/trip
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
   kong:
+    container_name: API-Gateway
+    hostname: API-Gateway
     depends_on:
       - web
     image: kong:latest
-    container_name: kong
     environment:
       KONG_DATABASE: 'off'
       KONG_PROXY_ACCESS_LOG: '/dev/stdout'
